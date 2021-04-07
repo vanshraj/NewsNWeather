@@ -1,32 +1,34 @@
 var express = require('express');
 var router = express.Router();
-var controllers = require('../controllers')
-//defining api
+var controllers = require('../controllers');
+var checkAuth = require('../middleware/checkAuth');
 
-//get all resource
-router.get('/:resource',function(req,res,next) {
-	var resource = req.params.resource;
-	var controller = controllers[resource];
-
-  //invalid api
-	if(controller==null){
-		res.json({
-			confirmation: 'fail',
-			message: 'Invalid resource request: '+resource
-		});
-		return;
-	}
-
-  //fetching resource
-	controller.find(req.query, function(err, results) {
+//get news
+router.get('/news', checkAuth,(req,res,next) => {
+	var controller = controllers['news'];
+	controller.find(req.query, (err, results) => {
 		if(err){
-			res.json({
-				confirmation: 'fail',
+			return res.json({
 				message: 'error-> '+err
 			});
-			return;
 		}
-		res.json({
+		return res.json({
+			count: results.length,
+			data: results
+		});
+	});
+});
+
+//get weather
+router.get('/weather', (req,res,next) => {
+	var controller = controllers['weather'];
+	controller.find(req.query, (err, results) => {
+		if(err){
+			return res.json({
+				message: 'error-> '+err
+			});
+		}
+		return res.json({
 			count: results.length,
 			data: results
 		});
