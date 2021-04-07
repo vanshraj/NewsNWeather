@@ -32,8 +32,10 @@ router.post('/login',(req, res, next) => {
 });
 
 //logout route
-router.get('/logout', (req,res) => {
-
+router.post('/logout', (req,res) => {
+  return res.json({
+    "message":'Logged Out'
+  });
 });
 
 
