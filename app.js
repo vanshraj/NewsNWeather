@@ -23,7 +23,7 @@ var dbUrl = config.DBHost;
 mongoose.connect(dbUrl, dbOptions , function(err, res){
   if(err)
     console.log('DB connection failed: '+err);
-  else
+  else if (config.useLogger)
     console.log('DB connection running: '+dbUrl);
 });
 

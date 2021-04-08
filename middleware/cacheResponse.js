@@ -1,5 +1,5 @@
 const cache = require('memory-cache');
-// configure cache middleware
+
 let memCache = new cache.Cache();
 module.exports = (duration) => {
     return (req, res, next) => {
