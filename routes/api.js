@@ -12,10 +12,7 @@ router.get('/news', checkAuth,(req,res,next) => {
 				message: 'error-> '+err
 			});
 		}
-		return res.json({
-			count: results.length,
-			data: results
-		});
+		return res.json(results);
 	});
 });
 
@@ -28,10 +25,7 @@ router.get('/weather', (req,res,next) => {
 				message: 'error-> '+err
 			});
 		}
-		return res.json({
-			count: results.length,
-			data: results
-		});
+		return res.json(results);
 	});
 });
 

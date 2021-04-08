@@ -11,7 +11,21 @@ module.exports = {
       q: params.search
     })
     .then(res => {
-			callback(null, res);
+      var articles = JSON.parse(res.text).articles;
+      var list = [];
+      articles.forEach((article) => {
+          var d = {};
+          d['headline'] = article.title;
+          d['link'] = article.url;
+          list.push(d);
+          if(list.length==articles.length){
+            var data = {
+              count:list.length,
+              data: list
+            }
+            callback(null,data);
+          }
+      });
     })
     .catch(err =>{
 			callback(err, null);
