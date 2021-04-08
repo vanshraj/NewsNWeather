@@ -6,11 +6,11 @@ var controller = require('../controllers')['user'];
 router.post('/signup', (req, res, next) => {
   controller.signup(req, (err, data) => {
 		if(err){
-			return res.json({
+			return res.status(400).send({
 				message: 'error-> '+err
 			});
 		}
-    return res.json({
+    return res.status(201).send({
       message:'New user created'
     });
 	});
@@ -20,11 +20,11 @@ router.post('/signup', (req, res, next) => {
 router.post('/login',(req, res, next) => {
   controller.login(req, (err, token) => {
 		if(err){
-			return res.json({
+			return res.status(400).send({
 				message: 'error-> '+err
 			});
 		}
-    return res.json({
+    return res.status(200).send({
       "token":token,
       "message":'Auth Success'
     });
@@ -33,7 +33,7 @@ router.post('/login',(req, res, next) => {
 
 //logout route
 router.post('/logout', (req,res) => {
-  return res.json({
+  return res.status(200).send({
     "message":'Logged Out'
   });
 });
